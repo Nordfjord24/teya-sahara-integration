@@ -1,0 +1,13 @@
+spec:
+  name: teya-hosted-backend
+  region: fra
+  services:
+    - name: web
+      environment_slug: node-js
+      source_dir: backend-sample
+      http_port: 8080
+      routes:
+        - path: /
+      build_command: npm install && npm run build
+      run_command: npm start
+
