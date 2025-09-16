@@ -1,0 +1,11 @@
+[
+  {
+    "id": "teya-card",
+    "name": "Credit Card (Teya)",
+    "checkout_url": "{APP_URL}/payment/checkout",
+    "icon": "{APP_URL}/public/images/Teya_PrimaryLogo.png"
+  }
+]
+
+
+

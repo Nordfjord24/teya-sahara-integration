@@ -1,0 +1,13 @@
+APP_URL=https://pay.example.com
+SECUREPAY_POST_URL=https://securepay.borgun.is/securepay/default.aspx
+
+DUDA_CLIENT_ID=caf094d3e2
+DUDA_CLIENT_SECRET=CBDyKNZ7HwrW
+DUDA_API_BASE=https://api.duda.co
+
+DATABASE_URL=postgres://user:pass@host:5432/db
+
+PORT=3000
+
+
+

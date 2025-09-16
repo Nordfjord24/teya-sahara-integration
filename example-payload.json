@@ -1,0 +1,17 @@
+{
+  "merchantid": "<site-merchant-id>",
+  "paymentgatewayid": "<site-gateway-id>",
+  "orderid": "<order-id>",
+  "currency": "EUR",
+  "buyername": "Jane Doe",
+  "buyerEmail": "jane@example.com",
+  "amount": 1299,
+  "CheckHash": "<hmac>",
+  "returnurlsuccess": "{APP_URL}/payment/return/success",
+  "returnurlsuccessserver": "{APP_URL}/payment/return/success-server",
+  "returnurlcancel": "{APP_URL}/payment/return/cancel",
+  "returnurlerror": "{APP_URL}/payment/return/error"
+}
+
+
+
