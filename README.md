@@ -1,23 +1,37 @@
-Hosted Gateway Starter (Duda + PSP Hosted Page)
+Hosted payment backend (sample)
 
-Contents:
-- checkout.html: Auto-post form to PSP (server renders hidden inputs)
-- success.html: Optional landing after PSP success
-- cancel.html: Landing after PSP cancel
-- error.html: Landing after PSP error
+Endpoints
+- GET /payment/methods → returns hosted method with checkout_url = {APP_URL}/payment/checkout
+- GET /payment/checkout → auto-posts to SECUREPAY_POST_URL
+- POST /payment/return/success-server → verifies signature, confirms Duda session
+- GET /payment/return/{success,cancel,error}
 
-Backend responsibilities:
-- Build PSP payload per site using that site’s merchant credentials
-- Render checkout.html with hidden fields and auto-submit
-- Implement return URLs (success, success-server, cancel, error) and confirm Duda session
+Setup
+1) Copy this folder to your backend repo or deploy it as-is.
+2) Create DO App Platform Web Service and Managed PostgreSQL. Attach DB.
+3) Set env vars per .env.example. Keep secrets in DO env.
+4) Initialize DB: psql "$DATABASE_URL" -f backend-sample/schema.sql
+5) Deploy. Set Duda gateway methods URL(s) to {APP_URL}/payment/methods.
 
-Security: Never post to the PSP from client JS. Server should render and auto-submit the form so secrets originate server-side.
+Notes
+- Implement exact Teya/Borgun CheckHash field order in buildCheckHash.
+- Replace confirmDudaSession with real Duda API call.
+- Store PSP secret encrypted; use ENCRYPTION_KEY (32-byte base64).
 
-Backend sample (copy to a separate repo or integrate into your app):
-- backend-sample/src/routes/payment.ts: Minimal routes for methods, checkout, and returns
-- backend-sample/src/server.ts: Express bootstrap
-- backend-sample/.env.example: Env vars to set in DigitalOcean
-- backend-sample/schema.sql: Minimal tables for order-session mapping and per-site PSP creds
+Backend Sample (Express) for Hosted Gateway
+
+Files:
+- src/routes/payment.ts — minimal routes for /payment/methods, /payment/checkout, and return URLs
+- src/server.ts — Express bootstrap
+- schema.sql — minimal tables (order_sessions, psp_credentials)
+- env-example.txt — example env vars to set in DigitalOcean
+
+Usage:
+1) Copy this folder into your backend repo (not recommended to run from views/).
+2) Create tables using schema.sql (or adapt to your DB/ORM).
+3) Fill env vars from env-example.txt in DigitalOcean App Platform.
+4) Implement DB functions to fetch per-site PSP creds and persist orderid mapping.
+5) Wire Duda client (OAuth/Partner API) in dudaService calls.
 
 
 
