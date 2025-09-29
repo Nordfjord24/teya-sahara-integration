@@ -1,19 +1,14 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { paymentRouter } from './routes/payment';
+// Use CommonJS-style require to avoid ESM path resolution issues in runtime
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const paymentRouter = require('./routes/payment.js').paymentRouter as import('./routes/payment').paymentRouter;
 
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const publicRoot = path.join(__dirname, '../../');
-app.use('/public', express.static(publicRoot));
 
 app.get('/health', (_req: Request, res: Response) => res.json({ ok: true }));
 
